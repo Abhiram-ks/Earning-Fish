@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801209522987",
+    "project_id": "earning-fish-dev",
+    "storage_bucket": "earning-fish-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801209522987:android:3a340f4b0c9156a928436e",
+        "android_client_info": {
+          "package_name": "com.earning.fish"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWp7Tku5gSpZ-WEsoLBnC011GHb069uGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
