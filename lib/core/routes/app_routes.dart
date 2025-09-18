@@ -1,4 +1,5 @@
 import 'package:earningfish/core/constant/constant.dart';
+import 'package:earningfish/features/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -12,7 +13,7 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-
+        return MaterialPageRoute(builder: (context) => SplashScreen());
       default:
         return MaterialPageRoute(
           builder:
