@@ -1,11 +1,13 @@
 import 'package:earningfish/core/constant/constant.dart';
+import 'package:earningfish/features/presentation/screens/dashbord_screen.dart';
+import 'package:earningfish/features/presentation/screens/login_screen.dart';
 import 'package:earningfish/features/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String splash = '/';
   static const String login  = '/login_screen';
-  static const String home   = '/home_screen';
+  static const String dashbord   = '/dashbord_screen';
   static const String networkfail = '/networkfail_screen';
   static const String createuser = '/createuser_screen';
 
@@ -14,6 +16,10 @@ class AppRoutes {
     switch (settings.name) {
       case splash:
         return MaterialPageRoute(builder: (context) => SplashScreen());
+      case login:
+        return MaterialPageRoute(builder: (context) => LoginScreen());
+      case dashbord:
+        return MaterialPageRoute(builder: (context) => DashboardScreen());
       default:
         return MaterialPageRoute(
           builder:
