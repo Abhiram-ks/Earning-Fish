@@ -80,7 +80,9 @@ class AppDrawer extends StatelessWidget {
                           Icons.fact_check_rounded,
                         ),
                         title: const Text('Completed PDI'),
-                        onTap: () {},
+                        onTap: () {
+                          context.read<FetchPDIBloc>().add(LoadPDIEventWIthQuary(quary: 'complete'));
+                        },
                       ),
                       ListTile(
                            contentPadding: const EdgeInsets.symmetric(
@@ -95,7 +97,9 @@ class AppDrawer extends StatelessWidget {
                           Icons.pending_actions,
                         ),
                         title: const Text('Pending PDI'),
-                        onTap: () {},
+                        onTap: () {
+                          context.read<FetchPDIBloc>().add(LoadPDIEventWIthQuary(quary: 'pending'));
+                        },
                       ),
                     ],
                   ),

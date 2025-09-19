@@ -9,4 +9,8 @@ class FetchPDIUseCase {
   Stream<List<PDIModel>> execute({required String uid}) {
     return repository.getAllPDI(uid: uid);
   }
+
+  Stream<List<PDIModel>> executeQuary({required String uid, required String quary}){
+    return repository.getQuaryPDI(uid: uid, quary: quary);
+  }
 }

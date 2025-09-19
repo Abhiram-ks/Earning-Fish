@@ -41,4 +41,30 @@ class FetchPDIBloc extends Bloc<FetchPDIEvent, FetchPDIState> {
       emit(FetchPDIError(message: e.toString()));
     }
   }
+
+    void _onQuary(
+      LoadPDIEventWIthQuary event, Emitter<FetchPDIState> emit) async {
+    emit(FetchPDILoading());
+
+    try {
+      final uid = await localDS.get();
+      if (uid == null) {
+        return emit( FetchPDIError(message: "Failed to Request PDI. user not found Please login again."));
+      }
+      final pdiStream = fetchPDIUseCase.executeQuary(uid: uid,quary: event.quary);
+      await emit.forEach<List<PDIModel>>(
+        pdiStream,
+        onData: (data) {
+          if (data.isEmpty) {
+            return FetchPDIEmpty(message: "PDI");
+          } else {
+            return FetchPDILoaded(pdiList: data);
+          }
+        },
+        onError: (error, _) => FetchPDIError(message: error.toString()),
+      );
+    } catch (e) {
+      emit(FetchPDIError(message: e.toString()));
+    }
+  }
 }

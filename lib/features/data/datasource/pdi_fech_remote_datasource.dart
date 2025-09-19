@@ -24,4 +24,23 @@ class FechPDIFirebaseDatasource {
       throw Exception("Unexpected Error: $e. Please try again");
     }
   }
+
+    Stream<List<PDIModel>> fetchQuary({required String uid, required String quary}) {
+    try {
+       return firestore
+        .collection('pdi')
+        .where('uid', isEqualTo: uid)
+        .where('status', isEqualTo: quary)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs.map((doc) => PDIModel.fromJson(doc.data(), doc.id)).toList(),
+        );
+    } on FirebaseException catch (e) {
+      log('Exeption occured firebasexeption: $e');
+      throw Exception("Firestore Error: $e. Please try again");
+    } catch (e) {
+      throw Exception("Unexpected Error: $e. Please try again");
+    }
+  }
 }

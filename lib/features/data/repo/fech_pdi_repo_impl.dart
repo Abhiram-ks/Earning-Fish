@@ -15,4 +15,13 @@ class FetchPDIRepositoryImpl implements FechPDIRepository {
       rethrow;
     }
   }
+
+    @override
+  Stream<List<PDIModel>> getQuaryPDI({required String uid, required String quary}) {
+    try {
+      return datasource.fetchQuary(uid: uid,quary: quary);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
