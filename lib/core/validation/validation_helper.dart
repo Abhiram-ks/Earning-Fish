@@ -7,7 +7,7 @@ class ValidatorHelper {
     } else if (!_emailRegex.hasMatch(value.trim())) {
       return 'Enter a valid email address';
     }
-    return null; 
+    return null;
   }
 
   static String? loginValidation(String? password) {
@@ -15,6 +15,15 @@ class ValidatorHelper {
       return 'please enter your password';
     } else if (password.length < 6 || password.length > 15) {
       return 'Oops! That password doesn’t look right.';
+    }
+    return null;
+  }
+
+  static String? textFieldValidation(String? data, String? label) {
+    if (data == null || data.trim().isEmpty) {
+      return "Please enter $label";
+    } else if (data.startsWith(' ')) {
+      return "$label cannot start with a space";
     }
     return null;
   }
