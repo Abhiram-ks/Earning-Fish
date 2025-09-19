@@ -12,7 +12,10 @@ class FetchPDILoaded extends FetchPDIState {
   FetchPDILoaded({required this.pdiList});
 }
 
-class FetchPDIEmpty extends FetchPDIState {}
+class FetchPDIEmpty extends FetchPDIState {
+  final String message;
+  FetchPDIEmpty({required this.message});
+}
 
 class FetchPDIError extends FetchPDIState {
   final String message;

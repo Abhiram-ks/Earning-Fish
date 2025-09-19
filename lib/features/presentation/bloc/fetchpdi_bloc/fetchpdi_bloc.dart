@@ -13,6 +13,7 @@ class FetchPDIBloc extends Bloc<FetchPDIEvent, FetchPDIState> {
 
   FetchPDIBloc({required this.fetchPDIUseCase, required this.localDS}) : super(FetchPDIInitial()) {
     on<LoadPDIEvent>(_onLoadPDI);
+    on<LoadPDIEventWIthQuary>(_onQuary);
   }
 
   void _onLoadPDI(
@@ -29,7 +30,7 @@ class FetchPDIBloc extends Bloc<FetchPDIEvent, FetchPDIState> {
         pdiStream,
         onData: (data) {
           if (data.isEmpty) {
-            return FetchPDIEmpty();
+            return FetchPDIEmpty(message: "PDI");
           } else {
             return FetchPDILoaded(pdiList: data);
           }

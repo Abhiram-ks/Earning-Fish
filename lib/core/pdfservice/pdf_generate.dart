@@ -50,7 +50,7 @@ pw.Widget yesNoField(bool? value) {
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.all(16),
         build: (context) => [
-          // Header
+         
           pw.Row(
             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
             children: [
@@ -63,7 +63,7 @@ pw.Widget yesNoField(bool? value) {
           ),
           pw.SizedBox(height: 20),
 
-          // Section PRE-CHECKS
+
           pw.Text("PRE-CHECKS", style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
           pw.Table(
             border: pw.TableBorder.all(),
@@ -268,14 +268,14 @@ pw.Widget yesNoField(bool? value) {
           pw.Container(
             padding: const pw.EdgeInsets.all(8),
             decoration: pw.BoxDecoration(
-              border: pw.Border.all(color: PdfColors.black, width: 2),
+              border: pw.Border.all(color: PdfColors.black, width: 1),
               borderRadius: const pw.BorderRadius.all(pw.Radius.circular(5)),
             ),
             child: pw.Text(
               "STATUS: ${str(model.status).toUpperCase()}",
               style: pw.TextStyle(
-                fontWeight: pw.FontWeight.bold,
-                fontSize: 16,
+                fontWeight: pw.FontWeight.normal,
+                fontSize: 14,
                 color: model.status == 'completed' ? PdfColors.green : PdfColors.orange,
               ),
             ),
