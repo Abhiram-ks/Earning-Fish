@@ -1,4 +1,4 @@
-
+import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/presentation/bloc/pdi_bloc/pdi_bloc.dart';
 import 'package:earningfish/features/presentation/widgets/pdi_widget/pdi_rediobutton_widget.dart';
 import 'package:flutter/material.dart';
@@ -31,14 +31,16 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
 
   void _updateData() {
     final bloc = context.read<PDIBloc>();
-    bloc.add(UpdateVehicleDetailsEvent(
-      dateOfInspection: _dateController.text,
-      tyreFrtRh: bloc.currentData.tyreFrtRh,
-      tyreFrtLh: bloc.currentData.tyreFrtLh,
-      tyreRrRh: bloc.currentData.tyreRrRh,
-      tyreRrLh: bloc.currentData.tyreRrLh,
-      spareWheel: bloc.currentData.spareWheel,
-    ));
+    bloc.add(
+      UpdateVehicleDetailsEvent(
+        dateOfInspection: _dateController.text,
+        tyreFrtRh: bloc.currentData.tyreFrtRh,
+        tyreFrtLh: bloc.currentData.tyreFrtLh,
+        tyreRrRh: bloc.currentData.tyreRrRh,
+        tyreRrLh: bloc.currentData.tyreRrLh,
+        spareWheel: bloc.currentData.spareWheel,
+      ),
+    );
   }
 
   @override
@@ -61,12 +63,46 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
             children: [
               TextFormField(
                 controller: _dateController,
-                decoration: const InputDecoration(
-                  labelText: 'Date of Inspection',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  labelText: 'Data of Inspection',
+                  labelStyle: TextStyle(color: AppPalette.greyColor),
                   filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: Icon(Icons.calendar_today),
+                  fillColor: AppPalette.trasprentColor,
+                  suffixIcon: const Icon(
+                    Icons.calendar_month_sharp,
+                    color: AppPalette.blackColor,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: AppPalette.hintColor,
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: AppPalette.blueColor,
+                      width: 1,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: AppPalette.redColor,
+                      width: 1,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: AppPalette.redColor,
+                      width: 1,
+                    ),
+                  ),
                 ),
                 readOnly: true,
                 onTap: () async {
@@ -103,54 +139,64 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
               ),
               const SizedBox(height: 10),
               buildRadioTile('Tyres - FRT RH', data.tyreFrtRh, (value) {
-                bloc.add(UpdateVehicleDetailsEvent(
-                  dateOfInspection: data.dateOfInspection,
-                  tyreFrtRh: value,
-                  tyreFrtLh: data.tyreFrtLh,
-                  tyreRrRh: data.tyreRrRh,
-                  tyreRrLh: data.tyreRrLh,
-                  spareWheel: data.spareWheel,
-                ));
+                bloc.add(
+                  UpdateVehicleDetailsEvent(
+                    dateOfInspection: data.dateOfInspection,
+                    tyreFrtRh: value,
+                    tyreFrtLh: data.tyreFrtLh,
+                    tyreRrRh: data.tyreRrRh,
+                    tyreRrLh: data.tyreRrLh,
+                    spareWheel: data.spareWheel,
+                  ),
+                );
               }),
               buildRadioTile('Tyres - FRT LH', data.tyreFrtLh, (value) {
-                bloc.add(UpdateVehicleDetailsEvent(
-                  dateOfInspection: data.dateOfInspection,
-                  tyreFrtRh: data.tyreFrtRh,
-                  tyreFrtLh: value,
-                  tyreRrRh: data.tyreRrRh,
-                  tyreRrLh: data.tyreRrLh,
-                  spareWheel: data.spareWheel,
-                ));
+                bloc.add(
+                  UpdateVehicleDetailsEvent(
+                    dateOfInspection: data.dateOfInspection,
+                    tyreFrtRh: data.tyreFrtRh,
+                    tyreFrtLh: value,
+                    tyreRrRh: data.tyreRrRh,
+                    tyreRrLh: data.tyreRrLh,
+                    spareWheel: data.spareWheel,
+                  ),
+                );
               }),
               buildRadioTile('Tyres - RR RH', data.tyreRrRh, (value) {
-                bloc.add(UpdateVehicleDetailsEvent(
-                  dateOfInspection: data.dateOfInspection,
-                  tyreFrtRh: data.tyreFrtRh,
-                  tyreFrtLh: data.tyreFrtLh,
-                  tyreRrRh: value,
-                  tyreRrLh: data.tyreRrLh,
-                  spareWheel: data.spareWheel,
-                ));
+                bloc.add(
+                  UpdateVehicleDetailsEvent(
+                    dateOfInspection: data.dateOfInspection,
+                    tyreFrtRh: data.tyreFrtRh,
+                    tyreFrtLh: data.tyreFrtLh,
+                    tyreRrRh: value,
+                    tyreRrLh: data.tyreRrLh,
+                    spareWheel: data.spareWheel,
+                  ),
+                );
               }),
               buildRadioTile('Tyres - RR LH', data.tyreRrLh, (value) {
-                bloc.add(UpdateVehicleDetailsEvent(
-                  dateOfInspection: data.dateOfInspection,
-                  tyreFrtRh: data.tyreFrtRh,
-                  tyreFrtLh: data.tyreFrtLh,
-                  tyreRrRh: data.tyreRrRh,
-                  tyreRrLh: value,
-                  spareWheel: data.spareWheel,
-                ));
+                bloc.add(
+                  UpdateVehicleDetailsEvent(
+                    dateOfInspection: data.dateOfInspection,
+                    tyreFrtRh: data.tyreFrtRh,
+                    tyreFrtLh: data.tyreFrtLh,
+                    tyreRrRh: data.tyreRrRh,
+                    tyreRrLh: value,
+                    spareWheel: data.spareWheel,
+                  ),
+                );
               }),
               buildRadioTile('Spare Wheel', data.spareWheel, (value) {
-                bloc.add(UpdateVehicleDetailsEvent(
-                  dateOfInspection: data.dateOfInspection,
-                  tyreFrtRh: data.tyreFrtRh,
-                  tyreFrtLh: data.tyreFrtLh,
-                  tyreRrRh: data.tyreRrRh,
-                  tyreRrLh: data.tyreRrLh,
-                  spareWheel: value,
-                ));
+                bloc.add(
+                  UpdateVehicleDetailsEvent(
+                    dateOfInspection: data.dateOfInspection,
+                    tyreFrtRh: data.tyreFrtRh,
+                    tyreFrtLh: data.tyreFrtLh,
+                    tyreRrRh: data.tyreRrRh,
+                    tyreRrLh: data.tyreRrLh,
+                    spareWheel: value,
+                  ),
+                );
               }),
             ],
           ),
@@ -158,6 +204,4 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
       },
     );
   }
-
- 
 }

@@ -63,7 +63,7 @@ class _LoginCredentialPartState extends State<LoginCredentialPart> {
               GestureDetector(
                 onTap: () {},
                 child: Text(
-                  "Forgot Pssword ?",
+                  "Authenticate account ?",
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,

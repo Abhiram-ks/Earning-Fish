@@ -7,6 +7,6 @@ void splashStateHandle(BuildContext context, SplashState state) {
   if (state is SplashBlocGoToLogin) {
     Navigator.pushReplacementNamed(context, AppRoutes.login);
   }else if (state is SplashBlocGoToDashBord){
-  //  Navigator.pushReplacementNamed(context, AppRoutes.home);
+   Navigator.pushReplacementNamed(context, AppRoutes.dashbord);
   }
 }

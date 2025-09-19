@@ -1,12 +1,12 @@
 
-
-
 import 'package:earningfish/core/common/custom_snackbar.dart';
 import 'package:earningfish/core/pdfservice/pdf_generate.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/data/model/pdi_model.dart';
+import 'package:earningfish/features/presentation/bloc/pdistatus_cubit/pdistatus_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PDICustomCardWidget extends StatelessWidget {
@@ -53,7 +53,10 @@ class PDICustomCardWidget extends StatelessWidget {
 
                       Text(
                         model.modelVariant,
-                        style: TextStyle(color: AppPalette.blackColor, fontSize: 13),
+                        style: TextStyle(
+                          color: AppPalette.blackColor,
+                          fontSize: 13,
+                        ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -64,8 +67,12 @@ class PDICustomCardWidget extends StatelessWidget {
                                 model: model,
                               );
                           if (!success && context.mounted) {
-                            CustomSnackBar.show(context, message: "Failed to generate PDF. Try again",backgroundColor: AppPalette.redColor,textAlign: TextAlign.center);
-                    
+                            CustomSnackBar.show(
+                              context,
+                              message: "Failed to generate PDF. Try again",
+                              backgroundColor: AppPalette.redColor,
+                              textAlign: TextAlign.center,
+                            );
                           }
                         },
                         icon: const Icon(
@@ -102,22 +109,37 @@ class PDICustomCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         PopupMenuButton<String>(
-                          icon: Icon(CupertinoIcons.bars),
                           color: AppPalette.whiteColor,
                           offset: const Offset(0, 35),
                           padding: EdgeInsets.zero,
                           onSelected: (value) {
-                            if (value == 'complete') {
-                            } else if (value == 'pending') {}
+                            final cubit = context.read<PDIStatusCubit>();
+                            cubit.updateStatus(
+                              pdiId: model.docId ?? '',
+                              newStatus: value,
+                            );
                           },
-                          itemBuilder:
-                              (context) => [
-                                PopupMenuItem(
-                                  value: 'mark',
-                                  child: Text(isMark ? 'Completed' : "pending"),
+                          itemBuilder: (context) {
+                            List<PopupMenuItem<String>> items = [];
+                            if (model.status == 'pending') {
+                              items.add(
+                                const PopupMenuItem(
+                                  value: 'complete',
+                                  child: Text('complete'),
                                 ),
-                              ],
+                              );
+                            } else if (model.status == 'complete') {
+                              items.add(
+                                const PopupMenuItem(
+                                  value: 'pending',
+                                  child: Text('pending'),
+                                ),
+                              );
+                            }
+                            return items;
+                          },
                         ),
+
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8,

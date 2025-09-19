@@ -1,8 +1,13 @@
- import 'package:flutter/material.dart';
+ import 'package:earningfish/core/themes/app_colors.dart';
+import 'package:flutter/material.dart';
 
 Widget buildRadioTile(String title, bool? value, Function(bool?) onChanged) {
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
+      elevation: 2,
+      shadowColor: AppPalette.blackColor,
+
+      color:  Color(0xFFEAF4F4),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -15,9 +20,11 @@ Widget buildRadioTile(String title, bool? value, Function(bool?) onChanged) {
                   child: RadioListTile<bool>(
                     title: const Text('Yes'),
                     value: true,
+                    activeColor: AppPalette.blackColor,
                     groupValue: value,
                     onChanged: onChanged,
                     dense: true,
+                    
                   ),
                 ),
                 Expanded(
@@ -25,6 +32,7 @@ Widget buildRadioTile(String title, bool? value, Function(bool?) onChanged) {
                     title: const Text('No'),
                     value: false,
                     groupValue: value,
+                    activeColor: AppPalette.blackColor,
                     onChanged: onChanged,
                     dense: true,
                   ),
