@@ -1,3 +1,5 @@
+![image alt](https://github.com/Abhiram-ks/Earning-Fish/blob/64918094680024f69f807024341e794fc48e4029/Untitled%20design.png)
+
 # Earning Fish
 
 Earning Fish is a Flutter-based PDI (Pre-Delivery Inspection) management application focused on secure, end-to-end encrypted data communication, real-time updates, and PDF report generation. The app provides a smooth and modern UI/UX with animations and custom widgets while ensuring data security and modular clean architecture for maintainable code.
@@ -22,5 +24,6 @@ Earning Fish is designed to empower automotive teams by providing a secure and e
 
 # Tech Stack & Tools
 Frontend: Flutter & Dart | State Management: Bloc & Cubit | Backend / Cloud: Firebase | Animations: Lottie Animations | PDF Generation | Architecture: Clean Architecture (SOLID principles, modular code) | Version Control
+
 
 
