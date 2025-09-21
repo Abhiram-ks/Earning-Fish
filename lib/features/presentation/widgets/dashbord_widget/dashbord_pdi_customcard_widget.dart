@@ -1,5 +1,5 @@
-
 import 'package:earningfish/core/common/custom_snackbar.dart';
+import 'package:earningfish/core/constant/constant.dart';
 import 'package:earningfish/core/pdfservice/pdf_generate.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/data/model/pdi_model.dart';
@@ -50,15 +50,17 @@ class PDICustomCardWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-
-                      Text(
-                        model.modelVariant,
-                        style: TextStyle(
-                          color: AppPalette.blackColor,
-                          fontSize: 13,
+                      SizedBox(
+                        height: 30,
+                        child: Text(
+                          model.modelVariant,
+                          style: TextStyle(
+                            color: AppPalette.blackColor,
+                            fontSize: 13,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
                       ElevatedButton.icon(
                         onPressed: () async {
@@ -88,7 +90,7 @@ class PDICustomCardWidget extends StatelessWidget {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red.withValues(alpha: 0.9),
+                          backgroundColor: Colors.red.withValues(alpha: .9),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 6,
                             vertical: 1,
@@ -101,12 +103,14 @@ class PDICustomCardWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 Expanded(
                   flex: 2,
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         PopupMenuButton<String>(
                           color: AppPalette.whiteColor,
@@ -139,7 +143,7 @@ class PDICustomCardWidget extends StatelessWidget {
                             return items;
                           },
                         ),
-
+                        ConstantWidgets.hight10(context),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8,
