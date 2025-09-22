@@ -5,7 +5,7 @@ class AuthUseCase {
 
   AuthUseCase(this.repository);
 
-  Future<bool> execute({required String email, required String password}) async {
-    return await repository.loginWithEmailPassword(email: email, password: password);
+  Future<bool> execute() async {
+    return await repository.signInWithGoogle();
   }
 }

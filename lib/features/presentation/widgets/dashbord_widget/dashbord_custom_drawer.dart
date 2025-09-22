@@ -4,6 +4,8 @@ import 'package:earningfish/core/routes/app_routes.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/presentation/bloc/fetchpdi_bloc/fetchpdi_bloc.dart';
 import 'package:earningfish/features/presentation/bloc/logout_bloc/logout_bloc.dart';
+import 'package:earningfish/features/presentation/screens/logodetails_screen.dart';
+import 'package:earningfish/features/presentation/screens/pdi_screen.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_logout_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,7 +118,7 @@ class AppDrawer extends StatelessWidget {
                     leading: const Icon(Icons.assignment_outlined),
                     title: Text('Add PDI Entry'),
                     onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.pdiform);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PdiScreen()));
                     },
                   ),
                 ],

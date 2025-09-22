@@ -7,6 +7,8 @@ import 'package:earningfish/features/domain/repo/fetch_pdi_usecase.dart';
 import 'package:earningfish/features/presentation/bloc/fetchpdi_bloc/fetchpdi_bloc.dart';
 import 'package:earningfish/features/presentation/bloc/logout_bloc/logout_bloc.dart';
 import 'package:earningfish/features/presentation/bloc/pdistatus_cubit/pdistatus_cubit.dart';
+import 'package:earningfish/features/presentation/bloc/progresser_cubit/progresser_cubit.dart';
+import 'package:earningfish/features/presentation/screens/pdi_screen.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_body_widget.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_custom_appbar.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_custom_drawer.dart';
@@ -33,6 +35,7 @@ class DashboardScreen extends StatelessWidget {
         ),
         BlocProvider(create: (context) => LogoutBloc(local: AuthLocalDatasource())),
         BlocProvider(create: (context) => PDIStatusCubit()),
+        BlocProvider(create: (context) => ProgresserCubit()),
       ],
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -45,7 +48,7 @@ class DashboardScreen extends StatelessWidget {
             ),
             appBar: CustomAppBarDashbord(
               onNotificationTap: () {
-                Navigator.pushNamed(context, AppRoutes.pdiform);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PdiScreen()));
               },
             ),
             body: DashbordBodyWIdget(

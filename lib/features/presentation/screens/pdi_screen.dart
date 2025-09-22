@@ -1,5 +1,6 @@
-import 'package:earningfish/core/common/custom_snackbar.dart';
+
 import 'package:earningfish/core/constant/app_images.dart';
+import 'package:earningfish/core/constant/constant.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/presentation/bloc/brand_cubit/brand_cubit.dart';
 import 'package:earningfish/features/presentation/screens/logodetails_screen.dart';
@@ -21,8 +22,9 @@ class PdiScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: const Text(
-              'PDI Specification',
+              'Vehicle Inspection',
               style: TextStyle(color: AppPalette.blackColor),
+              textAlign: TextAlign.start,
             ),
             backgroundColor: const Color(0xFFEAF4F4),
             elevation: 2,
@@ -43,29 +45,19 @@ class PdiScreen extends StatelessWidget {
                 childAspectRatio: 1.2,
               ),
               itemBuilder: (context, index) {
+                final selected = images[index];
                 return GestureDetector(
                   onTap: () {
-                    final selected = images[index];
-                    if (selected == PdiImageEnum.car) {
                       final cubit = context.read<BrandModelCubit>();
                       cubit.selectVehicle(selected.name.toUpperCase());
+                      final brands = VehicleBrands.brandMap[selected] ?? [];
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (context) =>
-                                  LogodetailsScreen(vehicle: selected.name),
+                          builder: (context) => LogodetailsScreen(brands: brands,selectedVehicleType: selected,),
                         ),
                       );
-                    } else {
-                      CustomSnackBar.show(
-                        context,
-                        message:
-                            '${selected.name} is not available at the moment.',
-                        backgroundColor: AppPalette.redColor,
-                        textAlign: TextAlign.center,
-                      );
-                    }
+                    
                   },
                   child: Card(
                     color: Colors.white,
@@ -74,15 +66,31 @@ class PdiScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     shadowColor: AppPalette.blackColor.withValues(alpha: .7),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          images[index].path,
-                          fit: BoxFit.contain,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                selected.path,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          selected.name.toUpperCase(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,      
+                          overflow: TextOverflow.ellipsis
+                        ),
+                       ConstantWidgets.hight10(context)
+                      ],
                     ),
                   ),
                 );
@@ -101,7 +109,7 @@ enum PdiImageEnum {
   scooter(AppImages.scooter),
   bus(AppImages.bus),
   car(AppImages.car),
-  jcb(AppImages.jcb),
+  heavyVehicles(AppImages.jcb),
   bike(AppImages.bike);
 
   final String path;

@@ -1,7 +1,9 @@
+import 'package:earningfish/core/common/custom_button.dart';
 import 'package:earningfish/core/constant/app_images.dart';
 import 'package:earningfish/core/constant/constant.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/presentation/bloc/fetchpdi_bloc/fetchpdi_bloc.dart';
+import 'package:earningfish/features/presentation/screens/logodetails_screen.dart';
 import 'package:earningfish/features/presentation/screens/pdi_screen.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_pdi_customcard_widget.dart';
 import 'package:flutter/material.dart';
@@ -39,23 +41,9 @@ class _DashbordBodyWIdgetState extends State<DashbordBodyWIdget> {
             horizontal: widget.screenWidth * .1,
             vertical: widget.screenHeight * 0.01,
           ),
-          child: GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio: 2.5,
-            children: List.generate(4, (index) {
-              final isFirst = index == 0;
-              final bgColor = isFirst ? Colors.purple : Colors.grey.shade400;
-              final textColor = isFirst ? Colors.white : Colors.black87;
-
-              return CustomPDIDemoCard(bgColor: bgColor, text: isFirst ? 'PDI': '', textColor: textColor, onTap: isFirst ? (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PdiScreen()));
-              } : (){});
-            }),
-          ),
+          child: CustomButton(text: 'PDI Form', onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PdiScreen()));
+          }, bgColor: Colors.purple, textColor: AppPalette.whiteColor,)
         ),
         Expanded(
           child: RefreshIndicator(
@@ -111,7 +99,7 @@ class _DashbordBodyWIdgetState extends State<DashbordBodyWIdget> {
                           fit: BoxFit.contain,
                         ),
                         Text(
-                          'EARNING FISH',
+                          'GROWBLIC',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 22,
@@ -193,50 +181,6 @@ class _DashbordBodyWIdgetState extends State<DashbordBodyWIdget> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class CustomPDIDemoCard extends StatelessWidget {
-  const CustomPDIDemoCard({
-    super.key,
-    required this.bgColor,
-    required this.text,
-    required this.textColor,
-    this.onTap,
-  });
-
-  final Color bgColor;
-  final String text;
-  final Color textColor;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color:AppPalette.blackColor.withValues(alpha: 0.1),
-              blurRadius: 6,
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: textColor,
-          ),
-        ),
-      ),
     );
   }
 }

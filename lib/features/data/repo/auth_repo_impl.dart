@@ -1,9 +1,8 @@
 import 'package:earningfish/features/data/datasource/auth_local_datasource.dart';
 import 'package:earningfish/features/data/datasource/auth_remote_datasource.dart';
 import 'package:earningfish/features/domain/repo/auth_repo.dart';
-
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuthRemoteDatasource remoteDS;
+  final AuthRemoteDataSource remoteDS;
   final AuthLocalDatasource localDS;
 
   AuthRepositoryImpl({
@@ -12,16 +11,13 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<bool> loginWithEmailPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> signInWithGoogle() async {
     try {
-      final uid = await remoteDS.loginWithEmailPassword(
-        email: email,
-        password: password,
-      ); 
-      return await localDS.save(uid!);
+      final String uid = await remoteDS.signInWithGoogle();
+      if (uid.isNotEmpty) {
+        return await localDS.save(uid); 
+      }
+      return false;
     } catch (e) {
       rethrow;
     }

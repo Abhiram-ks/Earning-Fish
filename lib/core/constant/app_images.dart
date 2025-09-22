@@ -17,7 +17,6 @@ class AppImages {
   static const String benz = 'assets/benzLogo.png';
   static const String bmw = 'assets/bmwLogo.png';
   static const String citroen = 'assets/citroenLogo.jpg';
-  static const String honda = 'assets/hondaLogo .jpg';
   static const String hyundai = 'assets/hyundaiMotorlogo.png';
   static const String jaguar = 'assets/jaguarLogo.png';
   static const String kia = 'assets/kialogo.png';
@@ -34,4 +33,23 @@ class AppImages {
   static const String volkswagen = 'assets/volkswagen.png';
   static const String volvo = 'assets/volvoLogo.png';
   static const String nissan = 'assets/nissan.png';
+
+  static const String tvs = 'assets/tvs_logo.png';
+  static const String royalenfield = 'assets/royalenfield_logo.png';
+  static const String bajaj = 'assets/bajaj_logo.png';
+  static const String hero = 'assets/hero_logo.png';
+  static const String ola = 'assets/ola_logo.png';
+  static const String ashokleyland = 'assets/ashokleyland_logo-removebg-preview.png';
+  static const String bugatti = 'assets/bugatti_logo.png';
+  static const String isuzu = 'assets/isuzu_logo.png';
+  static const String okinawa = 'assets/okinawa_logo.png';
+  static const String force = 'assets/force_logo.png';
+
+  static const String atlas = 'assets/atlas_logo.png';
+  static const String avon = 'assets/avon_logo.png';
+  static const String harlydeveson = 'assets/harly_deveson.png';
+  static const String honda = 'assets/honda_logo.png';
+  static const String java = 'assets/jawalogo.png';
+  static const String ktm = 'assets/ktm_logo.png';
+  static const String yamaha = 'assets/yamaha_logo.png';
 }
