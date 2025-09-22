@@ -1,4 +1,5 @@
 import 'package:earningfish/core/themes/app_colors.dart';
+import 'package:earningfish/core/validation/validation_helper.dart';
 import 'package:flutter/material.dart';
 
 Widget buildDateField(
@@ -57,17 +58,11 @@ Widget buildDateField(
           },
         );
         if (picked != null) {
-          final formattedDate =
-              "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
+          final formattedDate = "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
           controllers[key]!.text = formattedDate;
         }
       },
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please select $label';
-        }
-        return null;
-      },
+      validator: (value) => ValidatorHelper.textFieldValidation(value, label),
     ),
   );
 }

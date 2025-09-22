@@ -13,20 +13,31 @@ class VehicleDetailsTab extends StatefulWidget {
 
 class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
   final TextEditingController _dateController = TextEditingController();
-  bool _controllerInitialized = false;
+  final TextEditingController _tyreFrtRhRemark = TextEditingController();
+  final TextEditingController _tyreFrtLhRemark = TextEditingController();
+  final TextEditingController _tyreRrRhRemark = TextEditingController();
+  final TextEditingController _tyreRrLhRemark = TextEditingController();
+  final TextEditingController _spareWheelRemark = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _dateController.addListener(_updateData);
-    _controllerInitialized = true;
-  }
+    final bloc = context.read<PDIBloc>();
+    final data = bloc.currentData;
 
-  void _updateDateController(String date) {
-    if (!_controllerInitialized) return;
-    if (_dateController.text != date) {
-      _dateController.text = date;
-    }
+    _dateController.text = data.dateOfInspection;
+    _tyreFrtRhRemark.text = data.tyreFrtRhRemark ?? '';
+    _tyreFrtLhRemark.text = data.tyreFrtLhRemark ?? '';
+    _tyreRrRhRemark.text = data.tyreRrRhRemark ?? '';
+    _tyreRrLhRemark.text = data.tyreRrLhRemark ?? '';
+    _spareWheelRemark.text = data.spareWheelRemark ?? '';
+
+    _dateController.addListener(_updateData);
+    _tyreFrtRhRemark.addListener(_updateData);
+    _tyreFrtLhRemark.addListener(_updateData);
+    _tyreRrRhRemark.addListener(_updateData);
+    _tyreRrLhRemark.addListener(_updateData);
+    _spareWheelRemark.addListener(_updateData);
   }
 
   void _updateData() {
@@ -35,10 +46,15 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
       UpdateVehicleDetailsEvent(
         dateOfInspection: _dateController.text,
         tyreFrtRh: bloc.currentData.tyreFrtRh,
+        tyreFrtRhRemark: _tyreFrtRhRemark.text,
         tyreFrtLh: bloc.currentData.tyreFrtLh,
+        tyreFrtLhRemark: _tyreFrtLhRemark.text,
         tyreRrRh: bloc.currentData.tyreRrRh,
+        tyreRrRhRemark: _tyreRrRhRemark.text,
         tyreRrLh: bloc.currentData.tyreRrLh,
+        tyreRrLhRemark: _tyreRrLhRemark.text,
         spareWheel: bloc.currentData.spareWheel,
+        spareWheelRemark: _spareWheelRemark.text,
       ),
     );
   }
@@ -46,6 +62,11 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
   @override
   void dispose() {
     _dateController.dispose();
+    _tyreFrtRhRemark.dispose();
+    _tyreFrtLhRemark.dispose();
+    _tyreRrRhRemark.dispose();
+    _tyreRrLhRemark.dispose();
+    _spareWheelRemark.dispose();
     super.dispose();
   }
 
@@ -55,7 +76,6 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
       builder: (context, state) {
         final bloc = context.read<PDIBloc>();
         final data = bloc.currentData;
-        _updateDateController(data.dateOfInspection);
 
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -67,7 +87,7 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  labelText: 'Data of Inspection',
+                  labelText: 'Date of Inspection',
                   labelStyle: TextStyle(color: AppPalette.greyColor),
                   filled: true,
                   fillColor: AppPalette.trasprentColor,
@@ -89,20 +109,6 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
                       width: 1,
                     ),
                   ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: AppPalette.redColor,
-                      width: 1,
-                    ),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: AppPalette.redColor,
-                      width: 1,
-                    ),
-                  ),
                 ),
                 readOnly: true,
                 onTap: () async {
@@ -111,19 +117,6 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
                     initialDate: DateTime.now(),
                     firstDate: DateTime(2020),
                     lastDate: DateTime.now().add(const Duration(days: 365)),
-                    builder: (context, child) {
-                      return Theme(
-                        data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: Colors.blue.shade700,
-                            onPrimary: Colors.white,
-                            surface: Colors.white,
-                            onSurface: Colors.black,
-                          ),
-                        ),
-                        child: child!,
-                      );
-                    },
                   );
                   if (picked != null) {
                     final formattedDate =
@@ -138,66 +131,125 @@ class _VehicleDetailsTabState extends State<VehicleDetailsTab> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              buildRadioTile('Tyres - FRT RH', data.tyreFrtRh, (value) {
-                bloc.add(
-                  UpdateVehicleDetailsEvent(
-                    dateOfInspection: data.dateOfInspection,
-                    tyreFrtRh: value,
-                    tyreFrtLh: data.tyreFrtLh,
-                    tyreRrRh: data.tyreRrRh,
-                    tyreRrLh: data.tyreRrLh,
-                    spareWheel: data.spareWheel,
-                  ),
-                );
-              }),
-              buildRadioTile('Tyres - FRT LH', data.tyreFrtLh, (value) {
-                bloc.add(
-                  UpdateVehicleDetailsEvent(
-                    dateOfInspection: data.dateOfInspection,
-                    tyreFrtRh: data.tyreFrtRh,
-                    tyreFrtLh: value,
-                    tyreRrRh: data.tyreRrRh,
-                    tyreRrLh: data.tyreRrLh,
-                    spareWheel: data.spareWheel,
-                  ),
-                );
-              }),
-              buildRadioTile('Tyres - RR RH', data.tyreRrRh, (value) {
-                bloc.add(
-                  UpdateVehicleDetailsEvent(
-                    dateOfInspection: data.dateOfInspection,
-                    tyreFrtRh: data.tyreFrtRh,
-                    tyreFrtLh: data.tyreFrtLh,
-                    tyreRrRh: value,
-                    tyreRrLh: data.tyreRrLh,
-                    spareWheel: data.spareWheel,
-                  ),
-                );
-              }),
-              buildRadioTile('Tyres - RR LH', data.tyreRrLh, (value) {
-                bloc.add(
-                  UpdateVehicleDetailsEvent(
-                    dateOfInspection: data.dateOfInspection,
-                    tyreFrtRh: data.tyreFrtRh,
-                    tyreFrtLh: data.tyreFrtLh,
-                    tyreRrRh: data.tyreRrRh,
-                    tyreRrLh: value,
-                    spareWheel: data.spareWheel,
-                  ),
-                );
-              }),
-              buildRadioTile('Spare Wheel', data.spareWheel, (value) {
-                bloc.add(
-                  UpdateVehicleDetailsEvent(
-                    dateOfInspection: data.dateOfInspection,
-                    tyreFrtRh: data.tyreFrtRh,
-                    tyreFrtLh: data.tyreFrtLh,
-                    tyreRrRh: data.tyreRrRh,
-                    tyreRrLh: data.tyreRrLh,
-                    spareWheel: value,
-                  ),
-                );
-              }),
+
+              buildRadioTile(
+                title: 'Tyres - FRT RH',
+                value: data.tyreFrtRh,
+                remarkController: _tyreFrtRhRemark,
+                onChanged: (value) {
+                  bloc.add(
+                    UpdateVehicleDetailsEvent(
+                      dateOfInspection: data.dateOfInspection,
+                      tyreFrtRh: value,
+                      tyreFrtRhRemark: _tyreFrtRhRemark.text,
+                      tyreFrtLh: data.tyreFrtLh,
+                      tyreFrtLhRemark: _tyreFrtLhRemark.text,
+                      tyreRrRh: data.tyreRrRh,
+                      tyreRrRhRemark: _tyreRrRhRemark.text,
+                      tyreRrLh: data.tyreRrLh,
+                      tyreRrLhRemark: _tyreRrLhRemark.text,
+                      spareWheel: data.spareWheel,
+                      spareWheelRemark: _spareWheelRemark.text,
+                    ),
+                  );
+                },
+              ),
+
+              // Tyres - FRT LH
+              buildRadioTile(
+                title: 'Tyres - FRT LH',
+                value: data.tyreFrtLh,
+                remarkController: _tyreFrtLhRemark,
+                onChanged: (value) {
+                  bloc.add(
+                    UpdateVehicleDetailsEvent(
+                      dateOfInspection: data.dateOfInspection,
+                      tyreFrtRh: data.tyreFrtRh,
+                      tyreFrtRhRemark: _tyreFrtRhRemark.text,
+                      tyreFrtLh: value,
+                      tyreFrtLhRemark: _tyreFrtLhRemark.text,
+                      tyreRrRh: data.tyreRrRh,
+                      tyreRrRhRemark: _tyreRrRhRemark.text,
+                      tyreRrLh: data.tyreRrLh,
+                      tyreRrLhRemark: _tyreRrLhRemark.text,
+                      spareWheel: data.spareWheel,
+                      spareWheelRemark: _spareWheelRemark.text,
+                    ),
+                  );
+                },
+              ),
+
+              // Tyres - RR RH
+              buildRadioTile(
+                title: 'Tyres - RR RH',
+                value: data.tyreRrRh,
+                remarkController: _tyreRrRhRemark,
+                onChanged: (value) {
+                  bloc.add(
+                    UpdateVehicleDetailsEvent(
+                      dateOfInspection: data.dateOfInspection,
+                      tyreFrtRh: data.tyreFrtRh,
+                      tyreFrtRhRemark: _tyreFrtRhRemark.text,
+                      tyreFrtLh: data.tyreFrtLh,
+                      tyreFrtLhRemark: _tyreFrtLhRemark.text,
+                      tyreRrRh: value,
+                      tyreRrRhRemark: _tyreRrRhRemark.text,
+                      tyreRrLh: data.tyreRrLh,
+                      tyreRrLhRemark: _tyreRrLhRemark.text,
+                      spareWheel: data.spareWheel,
+                      spareWheelRemark: _spareWheelRemark.text,
+                    ),
+                  );
+                },
+              ),
+
+              // Tyres - RR LH
+              buildRadioTile(
+                title: 'Tyres - RR LH',
+                value: data.tyreRrLh,
+                remarkController: _tyreRrLhRemark,
+                onChanged: (value) {
+                  bloc.add(
+                    UpdateVehicleDetailsEvent(
+                      dateOfInspection: data.dateOfInspection,
+                      tyreFrtRh: data.tyreFrtRh,
+                      tyreFrtRhRemark: _tyreFrtRhRemark.text,
+                      tyreFrtLh: data.tyreFrtLh,
+                      tyreFrtLhRemark: _tyreFrtLhRemark.text,
+                      tyreRrRh: data.tyreRrRh,
+                      tyreRrRhRemark: _tyreRrRhRemark.text,
+                      tyreRrLh: value,
+                      tyreRrLhRemark: _tyreRrLhRemark.text,
+                      spareWheel: data.spareWheel,
+                      spareWheelRemark: _spareWheelRemark.text,
+                    ),
+                  );
+                },
+              ),
+
+              // Spare Wheel
+              buildRadioTile(
+                title: 'Spare Wheel',
+                value: data.spareWheel,
+                remarkController: _spareWheelRemark,
+                onChanged: (value) {
+                  bloc.add(
+                    UpdateVehicleDetailsEvent(
+                      dateOfInspection: data.dateOfInspection,
+                      tyreFrtRh: data.tyreFrtRh,
+                      tyreFrtRhRemark: _tyreFrtRhRemark.text,
+                      tyreFrtLh: data.tyreFrtLh,
+                      tyreFrtLhRemark: _tyreFrtLhRemark.text,
+                      tyreRrRh: data.tyreRrRh,
+                      tyreRrRhRemark: _tyreRrRhRemark.text,
+                      tyreRrLh: data.tyreRrLh,
+                      tyreRrLhRemark: _tyreRrLhRemark.text,
+                      spareWheel: value,
+                      spareWheelRemark: _spareWheelRemark.text,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         );

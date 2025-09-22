@@ -27,4 +27,13 @@ class ValidatorHelper {
     }
     return null;
   }
+
+  static String? basicTextFiledValidation(String? data) {
+    if(data == null || data.trim().isEmpty) {
+      return "Please Enter remark";
+    }  else if (data.startsWith(' ')) {
+      return "Remark cannot start with a space";
+    }
+    return null;
+  }
 }

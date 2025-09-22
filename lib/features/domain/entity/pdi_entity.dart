@@ -1,4 +1,6 @@
 class PDIEntity {
+  final String vehicleType;
+  final String brand;
   final String modelName;
   final String modelVariant;
   final String chassisNo;
@@ -9,92 +11,123 @@ class PDIEntity {
   final String dateOfReceipt;
   final String pdiKms;
   final String bodyShade;
-
   final String dateOfInspection;
-  final bool? tyreFrtRh;
-  final bool? tyreFrtLh;
-  final bool? tyreRrRh;
-  final bool? tyreRrLh;
-  final bool? spareWheel;
 
-  final bool? bodyPaintCondition;
-  final bool? dentsDefects;
-  final bool? doorsAlignment;
-  final bool? doorsNoise;
-  final bool? tailGateNoise;
-  final bool? remoteOperation;
+  final bool tyreFrtRh;
+  final String? tyreFrtRhRemark;
 
-  final bool? tyrePressure;
-  final bool? tyreFitment;
-  final bool? spareWheelUnlocking;
-  final bool? toolsAvailability;
-  final bool? tailGateOperation;
-  final bool? hsrpAvailability;
+  final bool tyreFrtLh;
+  final String? tyreFrtLhRemark;
+
+  final bool tyreRrRh;
+  final String? tyreRrRhRemark;
+
+  final bool tyreRrLh;
+  final String? tyreRrLhRemark;
+
+  final bool spareWheel;
+  final String? spareWheelRemark;
+
+  final bool bodyPaintCondition;
+  final String? bodyPaintRemark;
+
+  final bool dentsDefects;
+  final String? dentsDefectsRemark;
+
+  final bool doorsAlignment;
+  final String? doorsAlignmentRemark;
+
+  final bool doorsNoise;
+  final String? doorsNoiseRemark;
+
+  final bool tailGateNoise;
+  final String? tailGateNoiseRemark;
+
+  final bool remoteOperation;
+  final String? remoteOperationRemark;
+
+  final bool tyrePressure;
+  final String? tyrePressureRemark;
+
+  final bool tyreFitment;
+  final String? tyreFitmentRemark;
+
+  final bool spareWheelUnlocking;
+  final String? spareWheelUnlockingRemark;
+
+  final bool toolsAvailability;
+  final String? toolsAvailabilityRemark;
+
+  final bool tailGateOperation;
+  final String? tailGateOperationRemark;
+
+  final bool hsrpAvailability;
+  final String? hsrpAvailabilityRemark;
 
   const PDIEntity({
-    this.modelName = '',
-    this.modelVariant = '',
-    this.chassisNo = '',
-    this.engineNo = '',
-    this.keyNo = '',
-    this.batteryMake = '',
-    this.batterySerialNo = '',
-    this.dateOfReceipt = '',
-    this.pdiKms = '',
-    this.bodyShade = '',
-    this.dateOfInspection = '',
-    this.tyreFrtRh,
-    this.tyreFrtLh,
-    this.tyreRrRh,
-    this.tyreRrLh,
-    this.spareWheel,
-    this.bodyPaintCondition,
-    this.dentsDefects,
-    this.doorsAlignment,
-    this.doorsNoise,
-    this.tailGateNoise,
-    this.remoteOperation,
-    this.tyrePressure,
-    this.tyreFitment,
-    this.spareWheelUnlocking,
-    this.toolsAvailability,
-    this.tailGateOperation,
-    this.hsrpAvailability,
+    required this.vehicleType,
+    required this.brand,
+    required this.modelName,
+    required this.modelVariant,
+    required this.chassisNo,
+    required this.engineNo,
+    required this.keyNo,
+    required this.batteryMake,
+    required this.batterySerialNo,
+    required this.dateOfReceipt,
+    required this.pdiKms,
+    required this.bodyShade,
+    required this.dateOfInspection,
+
+    required this.tyreFrtRh,
+    this.tyreFrtRhRemark,
+
+    required this.tyreFrtLh,
+    this.tyreFrtLhRemark,
+
+    required this.tyreRrRh,
+    this.tyreRrRhRemark,
+
+    required this.tyreRrLh,
+    this.tyreRrLhRemark,
+
+    required this.spareWheel,
+    this.spareWheelRemark,
+
+    required this.bodyPaintCondition,
+    this.bodyPaintRemark,
+
+    required this.dentsDefects,
+    this.dentsDefectsRemark,
+
+    required this.doorsAlignment,
+    this.doorsAlignmentRemark,
+
+    required this.doorsNoise,
+    this.doorsNoiseRemark,
+
+    required this.tailGateNoise,
+    this.tailGateNoiseRemark,
+
+    required this.remoteOperation,
+    this.remoteOperationRemark,
+
+    required this.tyrePressure,
+    this.tyrePressureRemark,
+
+    required this.tyreFitment,
+    this.tyreFitmentRemark,
+
+    required this.spareWheelUnlocking,
+    this.spareWheelUnlockingRemark,
+
+    required this.toolsAvailability,
+    this.toolsAvailabilityRemark,
+
+    required this.tailGateOperation,
+    this.tailGateOperationRemark,
+
+    required this.hsrpAvailability,
+    this.hsrpAvailabilityRemark,
   });
-
-  bool get isComplete {
-    final textFieldsComplete =
-        modelName.isNotEmpty &&
-        modelVariant.isNotEmpty &&
-        chassisNo.isNotEmpty &&
-        engineNo.isNotEmpty &&
-        keyNo.isNotEmpty &&
-        batteryMake.isNotEmpty &&
-        batterySerialNo.isNotEmpty &&
-        dateOfReceipt.isNotEmpty &&
-        pdiKms.isNotEmpty &&
-        bodyShade.isNotEmpty &&
-        dateOfInspection.isNotEmpty;
-
-    final checklistComplete =
-        tyreFrtRh != null &&
-        tyreFrtLh != null &&
-        tyreRrRh != null &&
-        tyreRrLh != null &&
-        spareWheel != null &&
-        bodyPaintCondition != null &&
-        dentsDefects != null &&
-        doorsAlignment != null &&
-        doorsNoise != null &&
-        tailGateNoise != null &&
-        remoteOperation != null &&
-        tyrePressure != null &&
-        tyreFitment != null &&
-        spareWheelUnlocking != null &&
-        toolsAvailability != null &&
-        tailGateOperation != null &&
-        hsrpAvailability != null;
-
-    return textFieldsComplete && checklistComplete;
-  }
 }

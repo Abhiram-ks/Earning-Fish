@@ -1,9 +1,11 @@
 import 'package:earningfish/core/common/custom_button.dart';
+import 'package:earningfish/core/common/custom_snackbar.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/data/datasource/auth_local_datasource.dart';
 import 'package:earningfish/features/data/datasource/pdi_remote_datasource.dart';
 import 'package:earningfish/features/data/repo/pdi_repo_impl.dart';
 import 'package:earningfish/features/domain/usecase/pdi_usecase.dart';
+import 'package:earningfish/features/presentation/bloc/brand_cubit/brand_cubit.dart';
 import 'package:earningfish/features/presentation/bloc/pdi_bloc/pdi_bloc.dart';
 import 'package:earningfish/features/presentation/bloc/progresser_cubit/progresser_cubit.dart';
 import 'package:earningfish/features/presentation/widgets/pdi_widget/pdi_body_inspection_tap.dart';
@@ -82,7 +84,7 @@ class _PdiformScreenState extends State<PdiformScreen>
             ),
             body: TabBarView(
               controller: _tabController,
-              children: const [
+              children:  [
                 InitialDetailsTab(),
                 VehicleDetailsTab(),
                 BodyInspectionTab(),
@@ -93,7 +95,7 @@ class _PdiformScreenState extends State<PdiformScreen>
               builder: (context, state) {
                 final bloc = context.read<PDIBloc>();
                 final isComplete = bloc.currentData.isComplete;
-          
+                final selected = context.watch<BrandModelCubit>().state;
                 return SafeArea(
                   child: Padding(
                     padding:  EdgeInsets.symmetric(horizontal:screenWidth * .05,vertical: screenHeight * .01),
@@ -106,10 +108,19 @@ class _PdiformScreenState extends State<PdiformScreen>
                         },
                         child: CustomButton(
                           text: isComplete ? 'Submit PDI' : 'Complete All Fields',
-                          onPressed:
-                              isComplete
+                          onPressed: isComplete
                                   ? () {
-                                    bloc.add(SubmitPDIEvent());
+                                    if (selected.vehicle.isEmpty || selected.brandName.isEmpty || selected.modelName.isEmpty  || selected.variantName.isEmpty) {
+                                      CustomSnackBar.show(context, message:'The model variant field cannot be empty',backgroundColor: AppPalette.redColor,textAlign: TextAlign.center);
+                                     
+                                    }else {
+                                    bloc.add(SubmitPDIEvent(
+                                      vehicle: selected.vehicle,
+                                      brand: selected.brandName,
+                                      modelName: selected.modelName,
+                                      modelVariant: selected.variantName
+                                    ));
+                                    }
                                   }
                                   : null,
                           bgColor:

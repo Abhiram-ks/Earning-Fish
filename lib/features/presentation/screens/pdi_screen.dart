@@ -1,11 +1,12 @@
 import 'package:earningfish/core/common/custom_snackbar.dart';
 import 'package:earningfish/core/constant/app_images.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
+import 'package:earningfish/features/presentation/bloc/brand_cubit/brand_cubit.dart';
 import 'package:earningfish/features/presentation/screens/logodetails_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PdiScreen extends StatelessWidget {
-
   const PdiScreen({super.key});
 
   @override
@@ -46,14 +47,24 @@ class PdiScreen extends StatelessWidget {
                   onTap: () {
                     final selected = images[index];
                     if (selected == PdiImageEnum.car) {
+                      final cubit = context.read<BrandModelCubit>();
+                      cubit.selectVehicle(selected.name.toUpperCase());
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LogodetailsScreen(vehicle: selected.name,),
+                          builder:
+                              (context) =>
+                                  LogodetailsScreen(vehicle: selected.name),
                         ),
                       );
                     } else {
-                      CustomSnackBar.show(context, message: '${selected.name} is not available at the moment.',backgroundColor: AppPalette.redColor,textAlign: TextAlign.center);
+                      CustomSnackBar.show(
+                        context,
+                        message:
+                            '${selected.name} is not available at the moment.',
+                        backgroundColor: AppPalette.redColor,
+                        textAlign: TextAlign.center,
+                      );
                     }
                   },
                   child: Card(

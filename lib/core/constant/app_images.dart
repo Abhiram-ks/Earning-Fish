@@ -33,4 +33,5 @@ class AppImages {
   static const String toyota = 'assets/toyota.png';
   static const String volkswagen = 'assets/volkswagen.png';
   static const String volvo = 'assets/volvoLogo.png';
+  static const String nissan = 'assets/nissan.png';
 }
