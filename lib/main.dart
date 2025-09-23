@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       create: (context) => BrandModelCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Earning Fish',
+        title: 'INS PETRO',
         theme: AppTheme.lightTheme,
         initialRoute: AppRoutes.splash,
         onGenerateRoute: AppRoutes.generateRoute,

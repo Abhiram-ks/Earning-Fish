@@ -26,7 +26,7 @@ class PDICustomCardWidget extends StatelessWidget {
           onTap: () {},
           child: Container(
             margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             decoration: BoxDecoration(
               color: AppPalette.whiteColor,
               borderRadius: BorderRadius.circular(18),
@@ -41,7 +41,7 @@ class PDICustomCardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.modelName,
+                        '${model.brand.toUpperCase()}: ${model.modelName}',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

@@ -2,13 +2,11 @@ class AppImages {
   static const String appLogo = 'assets/earningfish_logo.png';
   static const String animation = 'assets/animation.json';
   static const String googleLogo = 'assets/google_logo.png';
-
-
   static const String scooter = 'assets/scooter.jpg';
   static const String jcb = 'assets/jcb.jpg';
   static const String truck = 'assets/truck.jpg';
   static const String car = 'assets/car.jpg';
-  static const String cycle = 'assets/cycle .jpg';
+  static const String cycle = 'assets/cylces.png';
   static const String bus = 'assets/bus.jpg';
   static const String bike = 'assets/bike.jpg';
 

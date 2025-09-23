@@ -1,12 +1,12 @@
+import 'package:earningfish/core/accont_helper/account_helper.dart';
 import 'package:earningfish/core/constant/app_images.dart';
 import 'package:earningfish/core/constant/constant.dart';
-import 'package:earningfish/core/routes/app_routes.dart';
 import 'package:earningfish/core/themes/app_colors.dart';
 import 'package:earningfish/features/presentation/bloc/fetchpdi_bloc/fetchpdi_bloc.dart';
 import 'package:earningfish/features/presentation/bloc/logout_bloc/logout_bloc.dart';
-import 'package:earningfish/features/presentation/screens/logodetails_screen.dart';
 import 'package:earningfish/features/presentation/screens/pdi_screen.dart';
 import 'package:earningfish/features/presentation/widgets/dashbord_widget/dashbord_logout_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -118,7 +118,66 @@ class AppDrawer extends StatelessWidget {
                     leading: const Icon(Icons.assignment_outlined),
                     title: Text('Add PDI Entry'),
                     onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PdiScreen()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PdiScreen()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.policy_outlined),
+                    title: Text('Terms and conditions'),
+                    onTap: () {
+                    openWebPage( context: context, errorMessage: 'Terms and conditions',url: 'https://www.freeprivacypolicy.com/live/b1f699a5-4a9a-463a-9330-ba87259e8ab2');
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.lock_outline),
+                    title: Text('Privacy Policy'),
+                    onTap: () {
+                        openWebPage( context: context, errorMessage: 'Privacy and Policy',url:     'https://www.freeprivacypolicy.com/live/39a41746-267a-4ac3-b926-971da3bdf7bc',);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: Text('Delete account'),
+                    onTap: () {
+                      showCupertinoDialog(
+                        context: context,
+                        builder:
+                            (dialogContext) => CupertinoAlertDialog(
+                              title: Text('Session warning'),
+                              content: Text(
+                                "Are you sure you want to delete? This action will permanently remove all data from the database.",
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(
+                                    'Yes, proced',
+                                    style: TextStyle(
+                                      color: AppPalette.redColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(dialogContext).pop();
+                                    AccountHelper.deleteAccount(context);
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  isDestructiveAction: true,
+                                  child: Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                      color: AppPalette.blackColor,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                      );
                     },
                   ),
                 ],
@@ -140,7 +199,7 @@ class AppDrawer extends StatelessWidget {
                         style: TextStyle(color: Colors.red),
                       ),
                       onTap: () {
-                         context.read<LogoutBloc>().add(LogoutRequest());
+                        context.read<LogoutBloc>().add(LogoutRequest());
                       },
                     ),
                   ),

@@ -17,8 +17,6 @@ class GooglesignBloc extends Bloc<GooglesignEvent, GooglesignState> {
       final success = await _usecase.execute();
       if (success) {
         emit(GooglesingSuccess());
-       
-      
       } else {
         emit(GooglesingFailure(message: 'Sign-In failed. Please try again.'));
       }

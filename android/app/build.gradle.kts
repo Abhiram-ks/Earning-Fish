@@ -38,8 +38,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = 6
+        versionName = "1.1.1" 
     }
 
     signingConfigs {
@@ -65,4 +65,5 @@ flutter {
 dependencies {
     // Kotlin DSL syntax
     implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.play:integrity:1.5.0")
 }

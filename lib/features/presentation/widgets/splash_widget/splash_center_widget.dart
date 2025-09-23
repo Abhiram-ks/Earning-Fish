@@ -30,7 +30,7 @@ class SplashCenterWidget extends StatelessWidget {
             ),
             ConstantWidgets.hight10(context),
             Text(
-              'EARNING FISH',
+              'GROWBLIC',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 22,
